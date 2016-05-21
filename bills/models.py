@@ -5,6 +5,7 @@ from django.db import models
 class Bill(models.Model):
 	name = models.CharField(max_length=200)
 	status = models.BooleanField(default=False)
+	date = models.DateTimeField()
 
 class Item(models.Model):
 	bill = models.ForeignKey('bills.Bill')
