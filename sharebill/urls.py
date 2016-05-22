@@ -17,6 +17,13 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 
+from bills import views as bill_views
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(
+        r'^$',
+        bill_views.Home.as_view(),
+        name='home'
+    ),
 ]
