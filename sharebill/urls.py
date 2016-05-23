@@ -26,4 +26,9 @@ urlpatterns = [
         bill_views.Home.as_view(),
         name='home'
     ),
+    url(
+        r'^host/$',
+        bill_views.Home.as_view(),
+        name='host'
+    ),
 ]
