@@ -7,7 +7,6 @@ class Home(TemplateView):
     template_name = 'home.html'
 
     def get(self, request):
-        print settings.TEMPLATE_DIRS
         return render(
             request,
             self.template_name
