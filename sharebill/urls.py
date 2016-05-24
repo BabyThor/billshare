@@ -28,7 +28,7 @@ urlpatterns = [
     ),
     url(
         r'^host/$',
-        bill_views.Home.as_view(),
+        bill_views.Host.as_view(),
         name='host'
     ),
 ]

@@ -11,3 +11,13 @@ class Home(TemplateView):
             request,
             self.template_name
         )
+
+
+class Host(TemplateView):
+	template_name = 'host.html'
+
+	def get(self, request):
+		return render(
+			request,
+			self.template_name
+		)
