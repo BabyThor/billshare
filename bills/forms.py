@@ -1,4 +1,6 @@
+from django.utils import timezone
 from django import forms
+from .models import Bill, Item
 
 class HostForm(forms.Form):
     item_name = forms.CharField(
@@ -27,3 +29,17 @@ class HostForm(forms.Form):
             }),
         required=True
     )
+
+    def save(self):
+        data = self.cleaned_data
+
+        bill = Bill.objects.create(
+            name='test',
+            date=timezone.now()
+        )
+        item = Item.objects.create(
+            bill=bill,
+            name=data['item_name'],
+            amount=data['item_amount'],
+            price=data['item_price'],
+        )
