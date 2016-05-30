@@ -1,5 +1,6 @@
 <h3>Input list of items</h3>
 <form name="host" action="." method="POST">{% csrf_token %}
+	<p>{{ form.bill_name }}</p>
 	<p>
 		{{ form.item_name }}{{ form.item_amount }}{{ form.item_price }}
 	</p>
