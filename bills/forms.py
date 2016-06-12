@@ -7,7 +7,8 @@ class HostForm(forms.Form):
         widget=forms.TextInput(
             attrs={
                 'id': 'bill',
-                'placeholder': 'Bill Name'
+                'placeholder': 'Bill Name',
+                'required': True,
             }),
         required=True
     )
@@ -15,8 +16,9 @@ class HostForm(forms.Form):
     item_name = forms.CharField(
         widget=forms.TextInput(
             attrs={
-                'id': 'name',
-                'placeholder': 'Name'
+                'class': 'name',
+                'placeholder': 'Name',
+                'required': True,
             }),
         required=True
     )
@@ -24,32 +26,20 @@ class HostForm(forms.Form):
     item_amount = forms.CharField(
         widget=forms.TextInput(
             attrs={
-                'id': 'amount',
-                'placeholder': 'Amount'
+                'class': 'amount',
+                'placeholder': 'Amount',
+                'required': True,
             }),
+        initial=1,
         required=True
        )
 
     item_price = forms.CharField(
         widget=forms.TextInput(
             attrs={
-                'id': 'price',
-                'placeholder': 'Price'
+                'class': 'price',
+                'placeholder': 'Price',
+                'required': True,
             }),
         required=True
     )
-
-    def save(self):
-        data = self.cleaned_data
-
-        bill = Bill.objects.create(
-            name=data['bill_name'],
-            date=timezone.now()
-        )
-
-        item = Item.objects.create(
-            bill=bill,
-            name=data['item_name'],
-            amount=data['item_amount'],
-            price=data['item_price'],
-        )
