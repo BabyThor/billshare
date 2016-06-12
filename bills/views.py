@@ -66,3 +66,19 @@ class Share(TemplateView):
                 'bill_id': bill_id
             }
         )
+
+
+class Friend(TemplateView):
+    template_name = 'friend.html'
+
+    def get(self, request, bill_id):
+        bill = Bill.objects.get(id=bill_id)
+        items = Item.objects.filter(bill=bill)
+        return render(
+            request,
+            self.template_name,
+            {
+                'bill': bill,
+                'items': items
+            }
+        )

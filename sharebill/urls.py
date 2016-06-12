@@ -36,4 +36,9 @@ urlpatterns = [
         bill_views.Share.as_view(),
         name='share'
     ),
+    url(
+        r'^friend/(?P<bill_id>\w+)$',
+        bill_views.Friend.as_view(),
+        name='friend'
+    ),
 ]
