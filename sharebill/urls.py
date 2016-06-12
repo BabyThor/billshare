@@ -31,4 +31,9 @@ urlpatterns = [
         bill_views.Host.as_view(),
         name='host'
     ),
+    url(
+        r'^share/(?P<bill_id>\w+)$',
+        bill_views.Share.as_view(),
+        name='share'
+    ),
 ]

@@ -1,6 +1,9 @@
+from django.core.urlresolvers import reverse
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.views.generic import TemplateView
 from django.utils import timezone
+
 
 from django.conf import settings
 from .forms import HostForm
@@ -42,10 +45,24 @@ class Host(TemplateView):
                 amount=list_item_amount[index],
                 price=list_item_price[index]
             )
+        return HttpResponseRedirect(
+            reverse(
+                'share',
+                kwargs={
+                    'bill_id': bill.id,
+                }
+            )
+        )
+
+
+class Share(TemplateView):
+    template_name = 'share.html'
+
+    def get(self, request, bill_id):
         return render(
             request,
             self.template_name,
             {
-                'form': self.form,
+                'bill_id': bill_id
             }
         )
