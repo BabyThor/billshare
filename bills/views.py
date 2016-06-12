@@ -8,6 +8,7 @@ from django.utils import timezone
 from django.conf import settings
 from .forms import HostForm
 from .models import Bill, Item
+from users.models import Friend
 
 class Home(TemplateView):
     template_name = 'home.html'
@@ -68,7 +69,7 @@ class Share(TemplateView):
         )
 
 
-class Friend(TemplateView):
+class FriendView(TemplateView):
     template_name = 'friend.html'
 
     def get(self, request, bill_id):
@@ -84,7 +85,13 @@ class Friend(TemplateView):
         )
 
     def post(self, request, bill_id):
-        print request.POST
+        friend_name = request.POST.get('name')
+        selected_items = request.POST.getlist('ate')
+        bill = Bill.objects.get(id=bill_id)
+        friend = Friend.objects.create(name=friend_name, bill=bill)
+        for selected_item in selected_items:
+            item = Item.objects.get(id=selected_item)
+            friend.items.add(item)
         return HttpResponseRedirect(
             reverse(
                 'share',

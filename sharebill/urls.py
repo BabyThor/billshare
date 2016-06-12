@@ -38,7 +38,7 @@ urlpatterns = [
     ),
     url(
         r'^friend/(?P<bill_id>\w+)$',
-        bill_views.Friend.as_view(),
+        bill_views.FriendView.as_view(),
         name='friend'
     ),
 ]

@@ -1,6 +1,7 @@
 <h2>Select menu that you ate!!</h2>
 <form name="friend" action="{{bill.id}}" method="POST" id="friend-form">{% csrf_token %}
-	<h2>bill.name</h2>
+	<input id="name" name="name" placeholder="Your Name" type="text" required="">
+	<h2>{{bill.name}}</h2>
 	<table>
 		{% for item in items %}
 			<tr>
