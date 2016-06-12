@@ -2,24 +2,24 @@
 <h3>Input list of items</h3>
 <form name="host" action="." method="POST" id="host-form">{% csrf_token %}
 	<p>{{ form.bill_name }}</p>
-	<p class="item">
-		{{ form.item_name }}{{ form.item_amount }}{{ form.item_price }}<a class="add-item" onclick="add_item()">Add</a>
-	</p>
+	<ul class="item">
+		<li>{{ form.item_name }}{{ form.item_amount }}{{ form.item_price }}<a class="add-item">Add</a></li>
+	</ul>
 	<input id="submit" type="submit" value="Submit">
 </form>
 
 <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
 <script type="text/javascript">
-	$('.amount').change(function() {
+	$(document).on("change", ".amount", function(e) {
 		var amount_text = $( this ).val();
 		var amount_number = parseInt(amount_text);
 		if (amount_text != amount_number){
-			$( this ).val(0);
+			$( this ).val(1);
 			alert('Please input amount as number');
 			
 		}
 	});
-	$('.price').change(function() {
+	$(document).on("change", ".price", function(e) {
 		var price_text = $( this ).val();
 		var price_number = parseFloat(price_text);
 		if (price_text != price_number){
@@ -30,7 +30,14 @@
 	});
 </script>
 <script type="text/javascript">
-	function add_item() {
-		$('#submit').before('<p class="item">{{ form.item_name }}{{ form.item_amount }}{{ form.item_price }}<a class="add-item" onclick="add_item()">Add</p>')
-	};
+	$(document).on("click", ".add-item", function(e) {
+		$('.add-item').attr('onclick', 'remove_item');
+		$('.add-item').addClass('remove-item');
+		$('.add-item').text('Remove');
+		$('.add-item').removeClass('add-item');
+		$('.item').append('<li>{{ form.item_name }}{{ form.item_amount }}{{ form.item_price }}<a class="add-item">Add</a></li>');
+	});
+	$(document).on("click", ".remove-item", function(e) {
+		$(this).closest("li").remove(); 
+	});
 </script>
