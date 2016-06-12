@@ -82,3 +82,14 @@ class Friend(TemplateView):
                 'items': items
             }
         )
+
+    def post(self, request, bill_id):
+        print request.POST
+        return HttpResponseRedirect(
+            reverse(
+                'share',
+                kwargs={
+                    'bill_id': bill_id,
+                }
+            )
+        )

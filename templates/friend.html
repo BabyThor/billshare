@@ -1,11 +1,14 @@
 <h2>Select menu that you ate!!</h2>
-<form action=".">
-	{% for item in items %}
-		<tr class="{% cycle 'row1' 'row2' %}">
-			<td><input type="checkbox" name="ate" value="{{item.id}}"></td>
-			<td>{{item.name}}</td>
-			<td>{{item.price}}</td>
-		</tr>
-	{% endfor %}
+<form name="friend" action="{{bill.id}}" method="POST" id="friend-form">{% csrf_token %}
+	<h2>bill.name</h2>
+	<table>
+		{% for item in items %}
+			<tr>
+				<td><input type="checkbox" name="ate" value="{{item.id}}"></td>
+				<td>{{item.name}}</td>
+				<td>{{item.price}}</td>
+			</tr>
+		{% endfor %}
+	</table>
 	<input type="submit" value="Submit">
 </form>
