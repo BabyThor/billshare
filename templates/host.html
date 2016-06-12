@@ -1,8 +1,44 @@
+{% load static %}
 <h3>Input list of items</h3>
-<form name="host" action="." method="POST">{% csrf_token %}
+<form name="host" action="." method="POST" id="host_form">{% csrf_token %}
 	<p>{{ form.bill_name }}</p>
 	<p>
 		{{ form.item_name }}{{ form.item_amount }}{{ form.item_price }}
 	</p>
+	<p>
+		{{ form.item_name }}{{ form.item_amount }}{{ form.item_price }}
+	</p>
+	<p>
+		{{ form.item_name }}{{ form.item_amount }}{{ form.item_price }}
+	</p>
+	<p>
+		{{ form.item_name }}{{ form.item_amount }}{{ form.item_price }}
+	</p>
+	<p>
+		{{ form.item_name }}{{ form.item_amount }}{{ form.item_price }}
+	</p>
+
 	<input type="submit" value="Submit">
 </form>
+
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+<script type="text/javascript">
+	$('.amount').change(function() {
+		var amount_text = $( this ).val();
+		var amount_number = parseInt(amount_text);
+		if (amount_text != amount_number){
+			$( this ).val(0);
+			alert('Please input amount as number');
+			
+		}
+	});
+	$('.price').change(function() {
+		var price_text = $( this ).val();
+		var price_number = parseFloat(price_text);
+		if (price_text != price_number){
+			$( this ).val(0);
+			alert('Please input price as number');
+			
+		}
+	});
+</script>
