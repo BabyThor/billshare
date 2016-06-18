@@ -1,19 +1,40 @@
 {% extends "base_template.html" %}
 {% load staticfiles %}
 {% block content %}
-<h2>Select menu that you ate!!</h2>
+<div class="row">
+	<div class="small-12 medium-12 large-12 text-center"><h2>{{ bill.name }}</h2></div>
+</div>
 <form name="friend" action="{{bill.id}}" method="POST" id="friend-form">{% csrf_token %}
-	<input id="name" name="name" placeholder="Your Name" type="text" required="">
-	<h2>{{bill.name}}</h2>
-	<table>
-		{% for item in items %}
-			<tr>
-				<td><input type="checkbox" name="ate" value="{{item.id}}"></td>
-				<td>{{item.name}}</td>
-				<td>{{item.price}}</td>
-			</tr>
-		{% endfor %}
-	</table>
-	<input type="submit" value="Submit">
+	<div class="row">
+		<div class="large-12 columns">
+			<h3>Select menu that you ate!!</h3>
+		</div>
+	</div>
+	<div class="row">
+		<div class="large-12 columns">
+			<input id="name" name="name" placeholder="Your Name" type="text" required="">
+		</div>
+	</div>
+	<div class="row">
+		<div class="large-12 columns">
+			<table>
+				<thead>
+					<tr>
+						<td></td>
+						<td>Order name</td>
+						<td>Order Price</td>
+					</tr>
+				</thead>
+				{% for item in items %}
+					<tr>
+						<td><input type="checkbox" name="ate" value="{{item.id}}"></td>
+						<td>{{item.name}}</td>
+						<td>{{item.price}}</td>
+					</tr>
+				{% endfor %}
+			</table>
+		</div>
+	</div>
+	<div class="row text-center"><button type="submit" class="success button round">Submit</button></div>
 </form>
 {% endblock %}
