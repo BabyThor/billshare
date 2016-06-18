@@ -1,6 +1,9 @@
 {% extends "base_template.html" %}
 {% load staticfiles %}
 {% block content %}
-<h2>Share to friend</h2>
-<p>Your bill id is {{bill_id}}</p>
+<div class="row">
+	<h2>Congratulation!! your bill is ready!</h2>
+	<p>Copy this link and send it to your friend</p>
+	<code>http://127.0.0.1:8000{% url 'friend' bill_id %}</code>
+</div>
 {% endblock %}
