@@ -1,13 +1,24 @@
 {% extends "base_template.html" %}
 {% load staticfiles %}
 {% block content %}
-<h3>Input list of items</h3>
+<div class="row">
+	<div class="small-12 medium-12 large-12 text-center"><h3>Create your bill here!!</h3></div>
+</div>
 <form name="host" action="." method="POST" id="host-form">{% csrf_token %}
-	<p>{{ form.bill_name }}</p>
-	<ul class="item">
-		<li>{{ form.item_name }}{{ form.item_amount }}{{ form.item_price }}<a class="add-item">Add</a></li>
-	</ul>
-	<input id="submit" type="submit" value="Submit">
+	<div class="row">
+		<div class="large-12 columns">
+			{{ form.bill_name }}
+		</div>
+	</div>
+	<div class="item">
+		<div class="row">
+			<div class="large-3 columns">{{ form.item_name }}</div>
+			<div class="large-3 columns">{{ form.item_amount }}</div>
+			<div class="large-3 columns">{{ form.item_price }}</div>
+			<a class="large-3 columns add-item button round">Add more item</a>
+		</div>
+	</div>
+	<div class="row text-center"><button type="submit" class="success button round">Create Bill</button></div>
 </form>
 
 <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
@@ -33,14 +44,13 @@
 </script>
 <script type="text/javascript">
 	$(document).on("click", ".add-item", function(e) {
-		$('.add-item').attr('onclick', 'remove_item');
-		$('.add-item').addClass('remove-item');
+		$('.add-item').addClass('remove-item alert');
 		$('.add-item').text('Remove');
 		$('.add-item').removeClass('add-item');
-		$('.item').append('<li>{{ form.item_name }}{{ form.item_amount }}{{ form.item_price }}<a class="add-item">Add</a></li>');
+		$('.item').append('<div class="row"><div class="large-3 columns">{{ form.item_name }}</div><div class="large-3 columns">{{ form.item_amount }}</div><div class="large-3 columns">{{ form.item_price }}</div><a class="large-3 columns add-item button round">Add more item</a>');
 	});
 	$(document).on("click", ".remove-item", function(e) {
-		$(this).closest("li").remove(); 
+		$(this).closest("div").remove(); 
 	});
 </script>
 {% endblock %}
