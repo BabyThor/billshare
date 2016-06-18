@@ -1,3 +1,6 @@
+{% extends "base_template.html" %}
+{% load staticfiles %}
+{% block content %}
 <h2>Select menu that you ate!!</h2>
 <form name="friend" action="{{bill.id}}" method="POST" id="friend-form">{% csrf_token %}
 	<input id="name" name="name" placeholder="Your Name" type="text" required="">
@@ -13,3 +16,4 @@
 	</table>
 	<input type="submit" value="Submit">
 </form>
+{% endblock %}

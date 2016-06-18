@@ -1,3 +1,6 @@
+{% extends "base_template.html" %}
+{% load staticfiles %}
+{% block content %}
 <h2>Summary bill pay</h2>
 <h2>{{bill.name}}</h2>
 <table>
@@ -14,3 +17,4 @@
 		</tr>
 	{% endfor %}
 </table>
+{% endblock %}

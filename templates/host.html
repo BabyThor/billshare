@@ -1,4 +1,6 @@
-{% load static %}
+{% extends "base_template.html" %}
+{% load staticfiles %}
+{% block content %}
 <h3>Input list of items</h3>
 <form name="host" action="." method="POST" id="host-form">{% csrf_token %}
 	<p>{{ form.bill_name }}</p>
@@ -41,3 +43,4 @@
 		$(this).closest("li").remove(); 
 	});
 </script>
+{% endblock %}
