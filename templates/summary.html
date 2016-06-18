@@ -1,20 +1,33 @@
 {% extends "base_template.html" %}
 {% load staticfiles %}
 {% block content %}
-<h2>Summary bill pay</h2>
-<h2>{{bill.name}}</h2>
-<table>
-	{% for friend in friends %}
-		<tr>
-			<td><input type="checkbox" name="paid" value="{{friend.id}}"></td>
-			<td>{{friend.name}}</td>
-			<td>{{friend.paid}}</td>
-			<td>
-				{% for item in friend.items.all %}
-					{{ item.name }}({{ item.price_per_person }})<br>
-				{% endfor%}
-			</td>
-		</tr>
-	{% endfor %}
-</table>
+<div class="row">
+	<div class="small-12 medium-12 large-12 text-center"><h2>Summary for {{bill.name}} bill</h2></div>
+</div>
+<div class="row">
+	<div class="large-12 columns">
+		<table>
+			<thead>
+				<tr>
+					<td></td>
+					<td>Name</td>
+					<td>Paid</td>
+					<td>Ordered</td>
+				</tr>
+			</thead>
+			{% for friend in friends %}
+				<tr>
+					<td><input type="checkbox" name="paid" value="{{friend.id}}"></td>
+					<td>{{friend.name}}</td>
+					<td>{{friend.paid}}</td>
+					<td>
+						{% for item in friend.items.all %}
+							{{ item.name }}({{ item.price_per_person }})<br>
+						{% endfor%}
+					</td>
+				</tr>
+			{% endfor %}
+		</table>
+	</div>
+</div>
 {% endblock %}
