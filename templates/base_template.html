@@ -1,0 +1,19 @@
+{% load staticfiles %}
+<!doctype html>
+<html class="no-js" lang="en" dir="ltr">
+		<head>
+		<meta charset="utf-8">
+		<meta http-equiv="x-ua-compatible" content="ie=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>{% block title %}Share Bill{% endblock %}</title>
+		<link rel="stylesheet" href="{% static "foundation/css/foundation.css" %}">
+		<link rel="stylesheet" href="{% static "foundation/css/app.css" %}">
+	</head>
+	<body>
+		{% block content %}{% endblock %}
+		<script src="{% static "foundation/js/vendor/jquery.js" %}"></script>
+		<script src="{% static "foundation/js/vendor/what-input.js" %}"></script>
+		<script src="{% static "foundation/js/vendor/foundation.js" %}"></script>
+		<script src="{% static "foundation/js/app.js" %}"></script>
+	</body>
+</html>
