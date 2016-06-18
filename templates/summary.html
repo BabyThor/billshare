@@ -8,7 +8,7 @@
 			<td>{{friend.paid}}</td>
 			<td>
 				{% for item in friend.items.all %}
-					{{ item.name }}<br>
+					{{ item.name }}({{ item.price_per_person }})<br>
 				{% endfor%}
 			</td>
 		</tr>

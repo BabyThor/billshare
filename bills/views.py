@@ -111,6 +111,11 @@ class SummaryView(TemplateView):
         bill = Bill.objects.get(id=bill_id)
         items = Item.objects.filter(bill=bill)
         friends = Friend.objects.filter(bill=bill)
+        for friend in friends:
+            paid = 0
+            for friend_item in friend.items.all():
+                paid += friend_item.price_per_person
+            friend.paid = paid
         return render(
             request,
             self.template_name,
