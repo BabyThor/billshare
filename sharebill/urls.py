@@ -41,4 +41,9 @@ urlpatterns = [
         bill_views.FriendView.as_view(),
         name='friend'
     ),
+    url(
+        r'^summary/(?P<bill_id>\w+)$',
+        bill_views.SummaryView.as_view(),
+        name='sumary'
+    ),
 ]

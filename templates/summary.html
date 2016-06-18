@@ -1,0 +1,16 @@
+<h2>Summary bill pay</h2>
+<h2>{{bill.name}}</h2>
+<table>
+	{% for friend in friends %}
+		<tr>
+			<td><input type="checkbox" name="paid" value="{{friend.id}}"></td>
+			<td>{{friend.name}}</td>
+			<td>{{friend.paid}}</td>
+			<td>
+				{% for item in friend.items.all %}
+					{{ item.name }}<br>
+				{% endfor%}
+			</td>
+		</tr>
+	{% endfor %}
+</table>

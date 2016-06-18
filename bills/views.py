@@ -100,3 +100,20 @@ class FriendView(TemplateView):
                 }
             )
         )
+
+class SummaryView(TemplateView):
+    template_name = 'summary.html'
+
+    def get(self, request, bill_id):
+        bill = Bill.objects.get(id=bill_id)
+        items = Item.objects.filter(bill=bill)
+        friends = Friend.objects.filter(bill=bill)
+        return render(
+            request,
+            self.template_name,
+            {
+                'bill': bill,
+                'items': items,
+                'friends': friends
+            }
+        )
