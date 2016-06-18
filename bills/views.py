@@ -93,7 +93,7 @@ class FriendView(TemplateView):
     def post(self, request, bill_id):
         friend_name = request.POST.get('name')
         selected_items = request.POST.getlist('ate')
-        bill = Bill.objects.get(id=bill_id)
+        bill = Bill.objects.get(slug=bill_id)
         friend = Friend.objects.create(name=friend_name, bill=bill)
         for selected_item in selected_items:
             item = Item.objects.get(id=selected_item)

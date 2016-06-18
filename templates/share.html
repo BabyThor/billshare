@@ -15,9 +15,9 @@
 	var clipboard = new Clipboard('.button');
 	$(document).on("click", ".button", function(e) {
 		$( this ).text('Copied');
+		setTimeout(function(){
+			$('.button').text('Copy this link and send it to your friend');
+		}, 2000);
 	});
-	setTimeout(function(){
-		$('.button').text('Copy this link and send it to your friend');
-	}, 2000);
 </script>
 {% endblock %}
