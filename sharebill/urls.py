@@ -34,17 +34,17 @@ urlpatterns = [
         name='host'
     ),
     url(
-        r'^share/(?P<bill_id>\w+)$',
+        r'^share/(?P<bill_id>\w+)/$',
         bill_views.Share.as_view(),
         name='share'
     ),
     url(
-        r'^friend/(?P<bill_id>\w+)$',
+        r'^friend/(?P<bill_id>\w+)/$',
         bill_views.FriendView.as_view(),
         name='friend'
     ),
     url(
-        r'^summary/(?P<bill_id>\w+)$',
+        r'^summary/(?P<bill_id>\w+)/$',
         bill_views.SummaryView.as_view(),
         name='sumary'
     ),
