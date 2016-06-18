@@ -13,8 +13,9 @@ class Bill(models.Model):
 class Item(models.Model):
 	bill = models.ForeignKey('bills.Bill')
 	name = models.CharField(max_length=200, null=False, blank=False)
-	amount = models.IntegerField()
-	price = models.IntegerField()
+	amount = models.IntegerField(default=0)
+	price = models.IntegerField(default=0)
+	price_per_person = models.IntegerField(default=0)
 
 	def __unicode__(self):
 		return '%s (%s)' % (self.name, self.bill.name)

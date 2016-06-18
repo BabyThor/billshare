@@ -92,6 +92,9 @@ class FriendView(TemplateView):
         for selected_item in selected_items:
             item = Item.objects.get(id=selected_item)
             friend.items.add(item)
+            friends = Friend.objects.filter(items=item)
+            item.price_per_person = (item.price / len(friends))
+            item.save()
         return HttpResponseRedirect(
             reverse(
                 'share',
