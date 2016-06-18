@@ -3,7 +3,21 @@
 {% block content %}
 <div class="row">
 	<h2>Congratulation!! your bill is ready!</h2>
-	<p>Copy this link and send it to your friend</p>
+	<button class="button success round" data-clipboard-text="http://127.0.0.1:8000{% url 'friend' bill_id %}">
+		Copy this link and send it to your friend
+	</button>
+	<p>If you don't see the button above just copy this url to and send to your friend</p>
 	<code>http://127.0.0.1:8000{% url 'friend' bill_id %}</code>
 </div>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+<script src="{% static "clipboard/dist/clipboard.min.js" %}"></script>
+<script type="text/javascript">
+	var clipboard = new Clipboard('.button');
+	$(document).on("click", ".button", function(e) {
+		$( this ).text('Copied');
+	});
+	setTimeout(function(){
+		$('.button').text('Copy this link and send it to your friend');
+	}, 2000);
+</script>
 {% endblock %}
