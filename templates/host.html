@@ -10,12 +10,24 @@
 			{{ form.bill_name }}
 		</div>
 	</div>
-	<div class="item">
-		<div class="row">
-			<div class="large-3 columns">{{ form.item_name }}</div>
-			<div class="large-3 columns">{{ form.item_amount }}</div>
-			<div class="large-3 columns">{{ form.item_price }}</div>
-			<a class="large-3 columns add-item button round">Add more item</a>
+	<div class="row">
+		<div class="large-12 columns">
+			<table class="item">
+				<thead>
+					<tr>
+						<td>Menu name</td>
+						<td>Menu amount</td>
+						<td>Menu Price</td>
+						<td></td>
+					</tr>
+				</thead>
+				<tr>
+					<td>{{ form.item_name }}</td>
+					<td>{{ form.item_amount }}</td>
+					<td>{{ form.item_price }}</td>
+					<td><a class="large-12 columns add-item button round">Add more item</a></td>
+				</tr>
+			</table>
 		</div>
 	</div>
 	<div class="row text-center"><button type="submit" class="success button round">Create Bill</button></div>
@@ -47,7 +59,7 @@
 		$('.add-item').addClass('remove-item alert');
 		$('.add-item').text('Remove');
 		$('.add-item').removeClass('add-item');
-		$('.item').append('<div class="row"><div class="large-3 columns">{{ form.item_name }}</div><div class="large-3 columns">{{ form.item_amount }}</div><div class="large-3 columns">{{ form.item_price }}</div><a class="large-3 columns add-item button round">Add more item</a>');
+		$('.item').append('<tr><td>{{ form.item_name }}</td><td>{{ form.item_amount }}</td><td>{{ form.item_price }}</td><td><a class="large-12 columns add-item button round">Add more item</a></td></tr>');
 	});
 	$(document).on("click", ".remove-item", function(e) {
 		$(this).closest("div").remove(); 
