@@ -1,3 +1,5 @@
+import uuid
+
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
@@ -38,7 +40,11 @@ class Host(TemplateView):
         list_item_name = request.POST.getlist('item_name')
         list_item_amount = request.POST.getlist('item_amount')
         list_item_price = request.POST.getlist('item_price')
-        bill = Bill.objects.create(name=bill_name, date=timezone.now())
+        bill = Bill.objects.create(
+            name=bill_name,
+            date=timezone.now(),
+            slug=uuid.uuid4().hex
+        )
         for index in range(len(list_item_name)):
             Item.objects.create(
                 bill=bill,
@@ -50,7 +56,7 @@ class Host(TemplateView):
             reverse(
                 'share',
                 kwargs={
-                    'bill_id': bill.id,
+                    'bill_id': bill.slug,
                 }
             )
         )
@@ -73,7 +79,7 @@ class FriendView(TemplateView):
     template_name = 'friend.html'
 
     def get(self, request, bill_id):
-        bill = Bill.objects.get(id=bill_id)
+        bill = Bill.objects.get(slug=bill_id)
         items = Item.objects.filter(bill=bill)
         return render(
             request,
@@ -108,7 +114,7 @@ class SummaryView(TemplateView):
     template_name = 'summary.html'
 
     def get(self, request, bill_id):
-        bill = Bill.objects.get(id=bill_id)
+        bill = Bill.objects.get(slug=bill_id)
         items = Item.objects.filter(bill=bill)
         friends = Friend.objects.filter(bill=bill)
         for friend in friends:

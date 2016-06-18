@@ -6,6 +6,7 @@ class Bill(models.Model):
 	name = models.CharField(max_length=200, null=False, blank=False)
 	status = models.BooleanField(default=False)
 	date = models.DateTimeField()
+	slug = models.CharField(max_length=100, null=False, blank=False)
 
 	def __unicode__(self):
 		return self.name
