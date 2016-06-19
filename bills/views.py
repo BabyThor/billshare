@@ -131,3 +131,12 @@ class SummaryView(TemplateView):
                 'friends': friends
             }
         )
+
+class SelfShare(TemplateView):
+    template_name = 'self_share.html'
+
+    def get(self, request):
+        return render(
+            request,
+            self.template_name
+        )

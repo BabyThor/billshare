@@ -1,0 +1,109 @@
+{% extends "base_template.html" %}
+{% load staticfiles %}
+{% block content %}
+<div class="row">
+	<div class="small-12 medium-12 large-12 text-center"><h3>Create your bill here!!</h3></div>
+</div>
+<div class="row">
+	<div class="large-12 columns">
+		<table>
+			<thead>
+				<tr>
+					<td>Service Charge(%)</td>
+					<td>VAT(%)</td>
+				</tr>
+			</thead>
+			<tr>
+				<td><input id="charge" placeholder="0" type="text"></td>
+				<td><input id="vat" placeholder="0" type="text"></td>
+			</tr>
+		</table>
+	</div>
+</div>
+<div class="row">
+	<div class="large-12 columns">
+		<table class="item">
+			<thead>
+				<tr>
+					<td>Menu Price</td>
+					<td>Share with</td>
+					<td>Paid</td>
+					<td></td>
+				</tr>
+			</thead>
+			<tr>
+				<td><input class="price" placeholder="Menu Price" type="text"></td>
+				<td><input class="share" placeholder="How many people will share" type="text" value="1"></td>
+				<td><input class="paid" placeholder="0" type="text" disabled=""></td>
+				<td><a class="large-12 columns add-item button round">Add more item</a></td>
+			</tr>
+			<tfoot>
+				<td></td>
+				<td>Total (include VAT + Service Charge)</td>
+				<td id="total"></td>
+				<td></td>
+			</tfoot>
+		</table>
+	</div>
+</div>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+<script type="text/javascript">
+	function calculate(price, share) {
+		return (parseFloat(price) / share).toFixed(2)
+	}
+	$(document).on("change", "#charge", function(e) {
+		updateTotal();
+	})
+	$(document).on("change", "#vat", function(e) {
+		updateTotal();
+	})
+	function updateTotal() {
+		var total = 0;
+		var sc = parseFloat($('#charge').val()) || 0
+		var vat = parseFloat($('#vat').val()) || 0
+		$('input.paid').each(function() {
+			var paid = parseFloat($( this ).val()) || 0
+			total = total + paid
+		})
+		sc = 1 + (sc / 100);
+		vat = 1 + (vat / 100);
+		total = total * sc * vat;
+		$('#total').text(total.toFixed(2));
+	}
+	$(document).on("change", ".price", function(e) {
+		var price_text = $( this ).val();
+		var price_number = parseFloat(price_text);
+		if (price_text != price_number){
+			$( this ).val(0);
+			alert('Please input price as number');
+		}
+		var share_text =  $( this ).closest('td').next().find('input').val();
+		var share_number = parseInt(share_text);
+		$( this ).closest('td').next().next().find('input').val(calculate(price_number, share_number));
+		updateTotal()
+	});
+	$(document).on("change", ".share", function(e) {
+		var share_text = $( this ).val();
+		var share_number = parseInt(share_text);
+		if (share_text != share_number){
+			$( this ).val(1);
+			alert('Please input share as number');
+		}
+		var price_text = $( this ).closest('td').prev().find('input').val();
+		var price_number = parseFloat(price_text);
+		$( this ).closest('td').next().find('input').val(calculate(price_number, share_number));
+		updateTotal()
+	});
+</script>
+<script type="text/javascript">
+	$(document).on("click", ".add-item", function(e) {
+		$('.add-item').addClass('remove-item alert');
+		$('.add-item').text('Remove');
+		$('.add-item').removeClass('add-item');
+		$('.item').append('<tr><td><input class="price" placeholder="Menu Price" type="text"></td><td><input class="share" placeholder="How many people will share" type="text" value="1"></td><td><input class="paid" placeholder="0" type="text" disabled=""></td><td><a class="large-12 columns add-item button round">Add more item</a></td></tr>');
+	});
+	$(document).on("click", ".remove-item", function(e) {
+		$(this).closest("tr").remove();
+	});
+</script>
+{% endblock %}
