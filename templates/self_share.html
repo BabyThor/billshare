@@ -9,11 +9,13 @@
 		<table>
 			<thead>
 				<tr>
+					<td>Discount(%)</td>
 					<td>Service Charge(%)</td>
 					<td>VAT(%)</td>
 				</tr>
 			</thead>
 			<tr>
+				<td><input id="discount" placeholder="0" type="text"></td>
 				<td><input id="charge" placeholder="0" type="text"></td>
 				<td><input id="vat" placeholder="0" type="text"></td>
 			</tr>
@@ -25,13 +27,15 @@
 		<table class="item">
 			<thead>
 				<tr>
-					<td>Menu Price</td>
-					<td>Share with</td>
-					<td>Paid</td>
-					<td></td>
+					<td width="10%" class="text-center">
+					<td width="25%" class="text-center">Menu Price</td>
+					<td width="20%" class="text-center">Share with</td>
+					<td width="25%" class="text-center">Paid</td>
+					<td width="20%" class="text-center"></td>
 				</tr>
 			</thead>
 			<tr>
+				<td><input type="checkbox" class="ate"></td>
 				<td><input class="price" placeholder="Menu Price" type="text"></td>
 				<td><input class="share" placeholder="How many people will share" type="text" value="1"></td>
 				<td><input class="paid" placeholder="0" type="text" disabled=""></td>
@@ -39,7 +43,8 @@
 			</tr>
 			<tfoot>
 				<td></td>
-				<td>Total (include VAT + Service Charge)</td>
+				<td></td>
+				<td>Total</td>
 				<td id="total"></td>
 				<td></td>
 			</tfoot>
@@ -51,23 +56,32 @@
 	function calculate(price, share) {
 		return (parseFloat(price) / share).toFixed(2)
 	}
+	$(document).on("change", "#discount", function(e) {
+		updateTotal();
+	})
 	$(document).on("change", "#charge", function(e) {
 		updateTotal();
 	})
 	$(document).on("change", "#vat", function(e) {
 		updateTotal();
 	})
+	$(document).on("change", '.ate', function(e) {
+		console.log('xxx');
+		updateTotal();
+	})
 	function updateTotal() {
 		var total = 0;
+		var dc = parseFloat($('#discount').val()) || 0
 		var sc = parseFloat($('#charge').val()) || 0
 		var vat = parseFloat($('#vat').val()) || 0
-		$('input.paid').each(function() {
+		$('input.ate:checked').each(function() {
 			var paid = parseFloat($( this ).val()) || 0
 			total = total + paid
 		})
+		dc = 1 - (dc / 100);
 		sc = 1 + (sc / 100);
 		vat = 1 + (vat / 100);
-		total = total * sc * vat;
+		total = total * dc * sc * vat;
 		$('#total').text(total.toFixed(2));
 	}
 	$(document).on("change", ".price", function(e) {
@@ -79,8 +93,9 @@
 		}
 		var share_text =  $( this ).closest('td').next().find('input').val();
 		var share_number = parseInt(share_text);
-		$( this ).closest('td').next().next().find('input').val(calculate(price_number, share_number));
-		updateTotal()
+		var price = calculate(price_number, share_number)
+		$( this ).closest('td').next().next().find('input').val(price);
+		$( this ).closest('td').prev().find('input').val(price);
 	});
 	$(document).on("change", ".share", function(e) {
 		var share_text = $( this ).val();
@@ -91,8 +106,9 @@
 		}
 		var price_text = $( this ).closest('td').prev().find('input').val();
 		var price_number = parseFloat(price_text);
-		$( this ).closest('td').next().find('input').val(calculate(price_number, share_number));
-		updateTotal()
+		var price = calculate(price_number, share_number)
+		$( this ).closest('td').next().find('input').val(price);
+		$( this ).closest('td').prev().prev().find('input').val(price)
 	});
 </script>
 <script type="text/javascript">
@@ -100,7 +116,7 @@
 		$('.add-item').addClass('remove-item alert');
 		$('.add-item').text('Remove');
 		$('.add-item').removeClass('add-item');
-		$('.item').append('<tr><td><input class="price" placeholder="Menu Price" type="text"></td><td><input class="share" placeholder="How many people will share" type="text" value="1"></td><td><input class="paid" placeholder="0" type="text" disabled=""></td><td><a class="large-12 columns add-item button round">Add more item</a></td></tr>');
+		$('.item').append('<tr><td><input type="checkbox" class="ate"></td><td><input class="price" placeholder="Menu Price" type="text"></td><td><input class="share" placeholder="How many people will share" type="text" value="1"></td><td><input class="paid" placeholder="0" type="text" disabled=""></td><td><a class="large-12 columns add-item button round">Add more item</a></td></tr>');
 	});
 	$(document).on("click", ".remove-item", function(e) {
 		$(this).closest("tr").remove();
