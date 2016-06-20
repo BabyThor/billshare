@@ -119,5 +119,6 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     join(BASE_DIR, "static"),
-    '/var/www/static/',
 ]
+
+STATIC_ROOT = join(DJANGO_ROOT, "assets")
